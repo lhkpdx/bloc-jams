@@ -28,8 +28,7 @@ body.landing {
 }
 .selling-points {
      position: relative;
-     
- }
+}
 
 .point {
      position: relative;
@@ -39,8 +38,7 @@ body.landing {
 
 .point .point-title {
      font-size: 1.25rem;
- }
- 
+}
  .ion-music-note,
  .ion-radio-waves,
  .ion-iphone {
