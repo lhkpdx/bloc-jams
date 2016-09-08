@@ -58,6 +58,7 @@ body {
 .links-container .navbar-link:hover {
      color: rgb(233,50,117);
  }
+
 .links-container .navbar-link:active{
     color: rgb(233,50,117);
     background-color: white;
@@ -66,6 +67,10 @@ body {
 .container {
      margin: 0 auto;
      max-width: 64rem;
+ }
+
+.container.narrow {
+     max-width: 56rem;
  }
 
 /* Medium and small screens (640px) */
@@ -83,6 +88,7 @@ body {
      .column.fourth { width: 25%; }
      .column.flow-opposite { float: right; }
 }
+
 /* Large screens (1024px) */
  @media (min-width: 1024px) {
      html { font-size: 120%; }
