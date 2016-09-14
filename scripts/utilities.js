@@ -1,9 +1,9 @@
 //loops through each element in points array
 //executes a callback for each element
 
-function forEach(pointsArray, callback) {
-    for (var i = 0; i < pointsArray.length; i++) {
-        callback(pointsArray[i]);
+function forEach(array, callback) {
+    for (var i = 0; i < array.length; i++) {
+        callback(array[i]);
     }
   };
 
