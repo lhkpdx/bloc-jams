@@ -55,13 +55,13 @@ var createSongRow = function(songNumber, songName, songLength) {
      return template;
  };
 
+var albumTitle = document.getElementsByClassName('album-view-title')[0];
+var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+
 var setCurrentAlbum = function(album) {
-     var albumTitle = document.getElementsByClassName('album-view-title')[0];
-     var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-     var albumImage = document.getElementsByClassName('album-cover-art')[0];
-     var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
- 
      albumTitle.firstChild.nodeValue = album.title;
      albumArtist.firstChild.nodeValue = album.artist;
      albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
@@ -78,29 +78,14 @@ window.onload = function() {
      setCurrentAlbum(albumPicasso);
  };
          
-var albumCovers = document.getElementsByClassName('album-cover-art');
-var loadAlbums = function() {
-    for (var i = 0; i < albumCovers.length; i++) {
-        setCurrentAlbum([i]);
-  }
-};
-
-document.getElementsByClassName('album-cover-art').addEventListener('click', function() {
-    loadAlbums()},
-                    false);
-
+var albumCovers = [albumPicasso, albumMarconi, albumLaura]
+var index = 1;
+albumImage.addEventListener('click', function(event) {
+    setCurrentAlbum(albumCovers[index]);
+    index++;
+    if (index == albumCovers.length) {
+        index = 0;
+    }
+});
 
 
-/*var albums = document.getElementsByClassName('album-cover-art');
- i = 1;
- for var j= albums.length; j--;) {
-     window.onload = function() {
-     setCurrentAlbum(albumPicasso);
-         document.getElementsByClassName('album-cover-art').addEventListener('click',function() {
-             this.src = albums[i >= albums.length - 1? i=0 : ++i]
-             setCurrentAlbum[i]
-*/
-
-
-
-/*Add an event listener to the album cover. When a user clicks it, the album page content should toggle between the three album objects: albumPicasso, albumMarconi, and your album object.*/

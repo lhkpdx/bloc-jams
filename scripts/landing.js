@@ -1,8 +1,3 @@
- //Replace the for loop in the animatePoints function //with a forEach block and confirm that the selling //points still animate properly.
-
-//     function forEach(pointsArray, callback) {
-//    for (var i = 0; i < pointsArray.length; i++) {
-//        callback(pointsArray[i]);
 
 var pointsArray = document.getElementsByClassName('point');
 
