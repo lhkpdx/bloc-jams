@@ -40,11 +40,33 @@ var setVolume = function(volume) {
      }
  };
 
+var setCurrentTimeInPlayerBar = function(currentTime) {
+    var currentTime = buzz.toTimer(currentSoundFile.getTime());
+     $('.current-time').text(currentTime);
+
+};
+
+
+//this is the right duration, but doesn't match the [wrong] duration in fixture.js.  How can I populate the right duration in the songlist before the song plays?
+var setTotalTimeInPlayerBar = function(totalTime) {
+    var totalTime = buzz.toTimer(currentSoundFile.getDuration());
+    $('.total-time').text(totalTime);
+    console.log(totalTime);
+};
+
+var filterTimeCode = function(timeInSeconds) {
+    var newValue = parseFloat(timeInSeconds);
+    var minutes = ("00" + Math.floor((newValue % 3600) / 60)).slice(-1);
+    var seconds = ("00" + (newValue % 3600) % 60).slice(-2);
+   return minutes + ":" + seconds;
+};
+
 var getSongNumberCell = function(number) {
     return $('.song-item-number[data-song-number="' + number + '"]');
 };
 
 var createSongRow = function(songNumber, songName, songLength) {
+    var songLength = filterTimeCode(songLength);
      var template =
         '<tr class="album-view-song-item">'
      + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
@@ -85,6 +107,7 @@ var createSongRow = function(songNumber, songName, songLength) {
                 $('.main-controls .play-pause').html(playerBarPauseButton);
                 currentSoundFile.play();
                 updateSeekBarWhileSongPlays();
+                 
             } else {
                 $(this).html(playButtonTemplate);
                 $('.main-controls .play-pause').html(playerBarPlayButton);
@@ -154,7 +177,7 @@ var setCurrentAlbum = function(album) {
     $albumReleaseInfo.text(album.year + ' ' + album.label);
     $albumImage.attr('src', album.albumArtUrl);
     $albumSongList.empty();
- 
+     
      for (var i = 0; i < album.songs.length; i++) {
          var $newRow = createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
          $albumSongList.append($newRow);
@@ -170,6 +193,9 @@ var updateSeekBarWhileSongPlays = function() {
              var $seekBar = $('.seek-control .seek-bar');
  
              updateSeekPercentage($seekBar, seekBarFillRatio);
+             setCurrentTimeInPlayerBar();
+             setTotalTimeInPlayerBar();
+             
          });
      }
  };
@@ -252,7 +278,7 @@ var nextSong = function() {
     currentSoundFile.play();
     updateSeekBarWhileSongPlays();
     updatePlayerBarSong();
-    
+        
     var lastSongNumber = getLastSongNumber(currentSongIndex);
     var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
     var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
@@ -278,7 +304,7 @@ var previousSong = function() {
     currentSoundFile.play();
     updateSeekBarWhileSongPlays();
     updatePlayerBarSong();
-    
+      
     var lastSongNumber = getLastSongNumber(currentSongIndex);
     var $previousSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
     var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
@@ -288,11 +314,11 @@ var previousSong = function() {
 };
 
 var updatePlayerBarSong = function() {
-
     $('.currently-playing .song-name').text(currentSongFromAlbum.title);
     $('.currently-playing .artist-name').text(currentAlbum.artist);
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
     $('.main-controls .play-pause').html(playerBarPauseButton);
+    
 
 };
 
@@ -317,7 +343,7 @@ var $previousButton = $('.main-controls .previous');
      $nextButton.click(nextSong);
   //   togglePlayFromPlayerBar();
      setupSeekBars();
-
+     
  });
   
 
